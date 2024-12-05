@@ -9,16 +9,15 @@ import HomeScreen from "./Home/home";
 function App() {
   return (
     <Router>
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/home" element={<HomeScreen/>} />
-      </Routes>
-    </AuthProvider>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/home/*" element={<HomeScreen />} />
+        </Routes>
+      </AuthProvider>
     </Router>
-
-  )
+  );
 }
 
 export default App;

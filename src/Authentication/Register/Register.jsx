@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import register_styles from "./Register.module.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/authContext";
 import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
 
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('')
+  const [isRegistered, setIsRegistered] = useState();
+  const [Message, setMessage] = useState('')
 
   const onSubmit = async(e) => {
     e.preventDefault();
-    console.log("Registrando con:", { email, password });
-
-    if(!isRegistered) {
-      setIsRegistered(true)
-      await doCreateUserWithEmailAndPassword(email, password);
+    
+    try{
+      if(!isRegistered) {
+        setIsRegistered(true)
+        await doCreateUserWithEmailAndPassword(email, password);
+        setMessage("Cuenta creada Exitosamente")
+      }
+    }catch(error){
+      setMessage(error.message)
+      setIsRegistered(false)
     }
+
   };
 
   return (
@@ -60,6 +65,7 @@ export default function RegisterScreen() {
           ¿Ya tienes una cuenta?{" "}
           <Link to="/" className={register_styles.link}>Inicia sesion aquí</Link>
         </p>
+        {Message && <p className={register_styles.Message}>{Message}</p>}
       </div>
     </div>
   );

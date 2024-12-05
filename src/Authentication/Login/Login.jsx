@@ -19,7 +19,6 @@ export default function LoginScreen() {
       setIsSigningIn(true);
       try {
         await doSignInWithEmailAndPassword(email, password);
-        console.log("Iniciado con " + email + " y " + password);
         navigate("/home", { replace: true }); // Redirigir al home
       } catch (error) {
         console.error("Error al iniciar sesión:", error);
