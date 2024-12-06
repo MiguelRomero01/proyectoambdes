@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 
 
 export default function ComboBoxElement({id, onChange, mainLabel, Element1, Element2, Element3, Element4}){
-     const [valueBox, setValueBox] = useState(0)
+     const [valueBox, setValueBox] = useState('')
 
      const handleChange = (event) => {
           const newValue = event.target.value
@@ -22,7 +22,7 @@ export default function ComboBoxElement({id, onChange, mainLabel, Element1, Elem
                     <Select
                          labelId="demo-simple-select-label"
                          id="demo-simple-select"
-                         defaultValue
+                         
                          value={valueBox}
                          onChange={handleChange}
                          >

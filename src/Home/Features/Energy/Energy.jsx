@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import energy_styles from "./Energy.module.css";
 
 import Box from "@mui/material/Box";
-import SliderElement from "../Elements/Slider";
-import ComboBoxElement from "../Elements/ComboBox";
+import SliderElement from "../../components/Elements/Slider";
+import ComboBoxElement from "../../components/Elements/ComboBox";
 
 export default function EnergyScreen() {
   const [sliders, setSliders] = useState({});

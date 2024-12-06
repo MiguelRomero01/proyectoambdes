@@ -6,7 +6,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
-import EnergyScreen from './components/Energy/Energy';
+import EnergyScreen from './Features/Energy/Energy';
 
 
 const NAVIGATION = [
