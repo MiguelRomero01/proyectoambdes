@@ -6,11 +6,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-export default function ComboBoxElement({mainLabel, Element1, Element2, Element3, Element4}){
-     const [value, setValue] = useState('');
+export default function ComboBoxElement({id, onChange, mainLabel, Element1, Element2, Element3, Element4}){
+     const [valueBox, setValueBox] = useState(0)
 
      const handleChange = (event) => {
-          setValue(event.target.value);
+          const newValue = event.target.value
+          setValueBox(newValue);
+          onChange(id, newValue);
      };
 
      return(
@@ -21,7 +23,7 @@ export default function ComboBoxElement({mainLabel, Element1, Element2, Element3
                          labelId="demo-simple-select-label"
                          id="demo-simple-select"
                          defaultValue
-                         value={value}
+                         value={valueBox}
                          onChange={handleChange}
                          >
                               <MenuItem value={10}>{Element1}</MenuItem>
@@ -30,8 +32,7 @@ export default function ComboBoxElement({mainLabel, Element1, Element2, Element3
                               <MenuItem value={50}>{Element4}</MenuItem>
                          </Select>
                </FormControl>
-
-               <p>{value}</p>
+               <p>{valueBox}</p>
           </Box>
      )
 }
