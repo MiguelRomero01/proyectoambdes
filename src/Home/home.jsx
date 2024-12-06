@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { extendTheme, styled } from '@mui/material/styles';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
-import Prueba from './prueba';
+import EnergyScreen from './components/Energy/Energy';
+
 
 const NAVIGATION = [
   {
@@ -17,14 +15,21 @@ const NAVIGATION = [
     title: 'Main items',
   },
   {
-    segment: 'prueba',
-    title: 'prueba',
-    icon: <DashboardIcon />,
-  },
-  {
-    segment: 'orders',
-    title: 'Orders',
-    icon: <ShoppingCartIcon />,
+    segment: 'Huella',
+    title: 'Tu Huella',
+    icon: <BarChartIcon />,
+    children: [
+      {
+        segment: 'Energy',
+        title: 'Energía',
+        icon: <DescriptionIcon />,
+      },
+      {
+        segment: 'Water',
+        title: 'Agua',
+        icon: <DescriptionIcon />,
+      },
+    ],
   },
   {
     kind: 'divider',
@@ -34,26 +39,9 @@ const NAVIGATION = [
     title: 'Analytics',
   },
   {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-  {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
+    segment: 'Graphics',
+    title: 'Gráficas',
+    icon: <BarChartIcon />
   },
 ];
 
@@ -93,43 +81,23 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 }));
 
 const CONTENT_BY_ROUTE = {
-  '/prueba': (
-    <Prueba/>
+
+  //Energía
+  '/Huella/Energy': (
+    <EnergyScreen/>
   ),
-  '/orders': (
-    <Grid container spacing={2}>
-      <Grid size={12}>
-        <Skeleton height={200} />
-      </Grid>
-      <Grid size={4}>
-        <Skeleton height={50} />
-      </Grid>
-      <Grid size={4}>
-        <Skeleton height={50} />
-      </Grid>
-      <Grid size={4}>
-        <Skeleton height={50} />
-      </Grid>
-    </Grid>
-  ),
-  '/reports/sales': (
-    <Grid container spacing={2}>
-      <Grid size={12}>
-        <Skeleton height={100} />
-      </Grid>
-      <Grid size={12}>
-        <Skeleton height={100} />
-      </Grid>
-    </Grid>
-  ),
-  '/reports/traffic': (
+
+  //Agua
+  '/Huella/Water': (
     <Grid container spacing={2}>
       <Grid size={12}>
         <Skeleton height={300} />
       </Grid>
     </Grid>
   ),
-  '/integrations': (
+
+  //Gráficas
+  '/Graphics': (
     <Grid container spacing={2}>
       <Grid size={12}>
         <Skeleton height={100} />
