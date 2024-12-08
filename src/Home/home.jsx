@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { extendTheme } from '@mui/material/styles';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
+
+// Components de Material UI
+import { AppBar, Toolbar, Box } from '@mui/material';
 
 //screens
 import HuellaIntro from './Huella';
@@ -15,6 +18,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import DownLoadAppButton from './components/Download/DownloadButton';
 
 const NAVIGATION = [
   {
@@ -81,23 +85,10 @@ function useDemoRouter(initialPath) {
 }
 
 const CONTENT_BY_ROUTE = {
-  '/Huella':(
-    <></>
-  ),
-  //Energía
-  '/Huella/Energy': (
-    <></>
-  ),
-
-  //Agua
-  '/Huella/Water': (
-    <></>
-  ),
-
-  //Gráficas
-  '/Graphics': (
-    <></>
-  ),
+  '/Huella': <></>,
+  '/Huella/Energy': <></>,
+  '/Huella/Water': <></>,
+  '/Graphics': <></>,
 };
 
 export default function HomeScreen(props) {
@@ -118,21 +109,23 @@ export default function HomeScreen(props) {
       window={demoWindow}
     >
       <DashboardLayout>
+        <AppBar position="static">
+          <Toolbar>
+            <Box sx={{ flexGrow: 1 }}> 
+              <p>Recuerda que debes completar la sección "Tu Huella" para poder ver las gráficas</p>
+            </Box>
+          </Toolbar>
+        </AppBar>
+            <DownLoadAppButton/>
+
         <PageContainer>
-          {router.pathname === '/Huella' && (
-            <HuellaIntro />
-          )}
-          {router.pathname === '/Huella/Energy' && (
-            <EnergyScreen result={resultEnergy} setResult={setResultEnergy} />
-          )}
-          {router.pathname === '/Huella/Water' && (
-            <WaterScreen result={resultWater} setResult={setResultWater} />
-          )}
+          {router.pathname === '/Huella' && <HuellaIntro />}
+          {router.pathname === '/Huella/Energy' && <EnergyScreen result={resultEnergy} setResult={setResultEnergy} />}
+          {router.pathname === '/Huella/Water' && <WaterScreen result={resultWater} setResult={setResultWater} />}
           {router.pathname === '/Graphics' && (
-            resultEnergy==null && resultWater==null? 
-              <Graphics  resultWater={resultWater} resultEnergy={resultEnergy} x={true}/>
-              : 
-              <Graphics  resultWater={resultWater} resultEnergy={resultEnergy} x={false}/>
+            resultEnergy == null && resultWater == null ? 
+            <Graphics resultWater={resultWater} resultEnergy={resultEnergy} x={true} /> : 
+            <Graphics resultWater={resultWater} resultEnergy={resultEnergy} x={false} />
           )}
           {CONTENT_BY_ROUTE[router.pathname] || (
             <div>

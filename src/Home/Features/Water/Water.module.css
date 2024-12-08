@@ -18,6 +18,7 @@
 
 .buttonCalculate {
      background-color: rgb(126, 187, 34);
+     border-color: rgb(126, 187, 34);
      margin: 10px 0;
      border-radius: 5px;
      width: 40%;
