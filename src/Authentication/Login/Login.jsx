@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import login_styles from "./Login.module.css";
-import { Link, Navigate, replace } from "react-router-dom";
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../../firebase/auth";
-import { useAuth } from "../../contexts/authContext";
+import { Link} from "react-router-dom";
+import { doSignInWithEmailAndPassword} from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
-  const { userLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
