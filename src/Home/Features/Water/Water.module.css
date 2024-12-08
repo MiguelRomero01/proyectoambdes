@@ -1,0 +1,38 @@
+.container {
+     display: flex;
+     justify-content: center; /* Centra el contenido horizontalmente */
+     align-items: center; /* Centra el contenido verticalmente */
+     height: 100vh; /* Esto asegura que el contenedor ocupe toda la altura de la ventana */
+     flex-direction: column; /* Hace que los elementos dentro del contenedor se apilen verticalmente */
+     gap: 40px; /* Agrega espacio entre el contenedor de las preguntas y el de los botones */
+}
+
+.buttonContainer {
+     display: flex;
+     flex-direction: column; /* Coloca el texto debajo del botón */
+     align-items: center; /* Centra los elementos horizontalmente */
+     justify-content: center; /* Centra los elementos verticalmente en su contenedor */
+     text-align: center; /* Centra el texto */
+     gap: 20px; /* Agrega espacio entre el botón y el texto */
+}
+
+.buttonCalculate {
+     background-color: rgb(126, 187, 34);
+     margin: 10px 0;
+     border-radius: 5px;
+     width: 40%;
+     height: 40px;
+     font-size: 16px;
+     cursor: pointer;
+     transition: all 0.1s ease-in-out;
+   }
+   
+   .buttonCalculate:hover {
+     scale: 1.03;
+   }
+
+.message {
+     font-size: 16px;
+     margin: 0;
+     padding: 10px 0;
+}

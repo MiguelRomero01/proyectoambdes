@@ -1,13 +1,20 @@
-import * as React from 'react';
-import { extendTheme, styled } from '@mui/material/styles';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
+import React, {useState} from 'react';
+import { extendTheme } from '@mui/material/styles';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
-import EnergyScreen from './Features/Energy/Energy';
 
+//screens
+import HuellaIntro from './Huella';
+import EnergyScreen from './Features/Energy/Energy';
+import WaterScreen from './Features/Water/Water';
+import Graphics from './Features/Graphics/Graphics';
+
+//icons
+import BarChartIcon from '@mui/icons-material/BarChart';
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
 
 const NAVIGATION = [
   {
@@ -17,17 +24,17 @@ const NAVIGATION = [
   {
     segment: 'Huella',
     title: 'Tu Huella',
-    icon: <BarChartIcon />,
+    icon: <FingerprintIcon />,
     children: [
       {
         segment: 'Energy',
         title: 'Energía',
-        icon: <DescriptionIcon />,
+        icon: <EnergySavingsLeafIcon />,
       },
       {
         segment: 'Water',
         title: 'Agua',
-        icon: <DescriptionIcon />,
+        icon: <WaterDropIcon />,
       },
     ],
   },
@@ -73,50 +80,34 @@ function useDemoRouter(initialPath) {
   return router;
 }
 
-const Skeleton = styled('div')(({ theme, height }) => ({
-  backgroundColor: theme.palette.action.hover,
-  borderRadius: theme.shape.borderRadius,
-  height,
-  content: '" "',
-}));
-
 const CONTENT_BY_ROUTE = {
-
+  '/Huella':(
+    <></>
+  ),
   //Energía
   '/Huella/Energy': (
-    <EnergyScreen/>
+    <></>
   ),
 
   //Agua
   '/Huella/Water': (
-    <Grid container spacing={2}>
-      <Grid size={12}>
-        <Skeleton height={300} />
-      </Grid>
-    </Grid>
+    <></>
   ),
 
   //Gráficas
   '/Graphics': (
-    <Grid container spacing={2}>
-      <Grid size={12}>
-        <Skeleton height={100} />
-      </Grid>
-      <Grid size={6}>
-        <Skeleton height={50} />
-      </Grid>
-      <Grid size={6}>
-        <Skeleton height={50} />
-      </Grid>
-    </Grid>
+    <></>
   ),
 };
 
 export default function HomeScreen(props) {
+
   const { window } = props;
 
-  const router = useDemoRouter('/prueba');
+  const [resultWater, setResultWater] = useState(null);
+  const [resultEnergy, setResultEnergy] = useState(null);
 
+  const router = useDemoRouter('/Huella');
   const demoWindow = window ? window() : undefined;
 
   return (
@@ -128,6 +119,21 @@ export default function HomeScreen(props) {
     >
       <DashboardLayout>
         <PageContainer>
+          {router.pathname === '/Huella' && (
+            <HuellaIntro />
+          )}
+          {router.pathname === '/Huella/Energy' && (
+            <EnergyScreen result={resultEnergy} setResult={setResultEnergy} />
+          )}
+          {router.pathname === '/Huella/Water' && (
+            <WaterScreen result={resultWater} setResult={setResultWater} />
+          )}
+          {router.pathname === '/Graphics' && (
+            resultEnergy==null && resultWater==null? 
+              <Graphics  resultWater={resultWater} resultEnergy={resultEnergy} x={true}/>
+              : 
+              <Graphics  resultWater={resultWater} resultEnergy={resultEnergy} x={false}/>
+          )}
           {CONTENT_BY_ROUTE[router.pathname] || (
             <div>
               <p>No content available for this route.</p>
