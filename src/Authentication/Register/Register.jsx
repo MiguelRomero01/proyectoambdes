@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import register_styles from "./Register.module.css";
 import { Link } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
 
+//icons
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState();
+
+  const [passwordRequirements, setPasswordRequirements] = useState(false)
+
   const [Message, setMessage] = useState('')
+  const [MessageClass, setMessageClass] = useState('')
 
   const onSubmit = async(e) => {
     e.preventDefault();
@@ -18,13 +25,19 @@ export default function RegisterScreen() {
         setIsRegistered(true)
         await doCreateUserWithEmailAndPassword(email, password);
         setMessage("Cuenta creada Exitosamente")
+        setMessageClass('success')
       }
     }catch(error){
-      setMessage(error.message)
+      setMessageClass('error')
+      setMessage('Ocurrió un error. Llena los datos correctamente')
       setIsRegistered(false)
     }
 
   };
+
+  useEffect(() => {
+    password.length >= 6 ? setPasswordRequirements(true) : setPasswordRequirements(false);
+  }, [password]);
 
   return (
     <div className={register_styles.page}>
@@ -65,7 +78,25 @@ export default function RegisterScreen() {
           ¿Ya tienes una cuenta?{" "}
           <Link to="/" className={register_styles.link}>Inicia sesion aquí</Link>
         </p>
-        {Message && <p className={register_styles.Message}>{Message}</p>}
+
+        <div className={register_styles.requirement}>
+        </div>
+
+            <ul className={register_styles['List-requirements']}>
+              {
+                passwordRequirements?
+                  <li style={{color:'#00FF00' }}>La contraseña debe tener mínimo 6 caracteres <CheckCircleIcon sx={{ fontSize: 18, verticalAlign: 'middle' }}/></li>
+                  :
+                  <li style={{ color: 'red' }}>La contraseña debe tener mínimo 6 caracteres <ErrorIcon sx={{ fontSize: 18, verticalAlign: 'middle' }} /> </li>
+              }
+            </ul>
+
+        {/* Mensaje de estado con clase dinámica */}
+        {Message && (
+          <div className={`${register_styles.message} ${register_styles[MessageClass]}`}>
+            <p>{Message}</p>
+          </div>
+        )}
       </div>
     </div>
   );
